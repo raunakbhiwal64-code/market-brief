@@ -1,22 +1,23 @@
-﻿# 📊 WhatsApp Morning Market Brief
+﻿# 📊 Morning Market Brief — Email Edition
 
-Automated daily WhatsApp message at **8:55 AM IST (Mon–Fri)** with:
+Automated daily email at **8:55 AM IST (Mon–Fri)** to `raunakbhiwal64@gmail.com` and `madhujotmadan@gmail.com` with:
 - 🟢/🔴 Gift Nifty (latest value as of ~8:45 AM)
 - 🇺🇸 Dow Jones previous close
 - 📰 Top Economic Times market headline
 
-Powered by GitHub Actions + [CallMeBot](https://www.callmebot.com/) (free, no credit card).
+Powered by **GitHub Actions + Gmail SMTP** (free, no third-party services).
 
 ---
 
-## 1. One-Time CallMeBot Setup
+## 1. Create a Gmail App Password (one-time)
 
-1. Save **+34 644 65 29 86** as a contact (name it anything, e.g. "CallMeBot")
-2. Send this exact message to that number on WhatsApp:
-   ```
-   I allow callmebot to send me messages
-   ```
-3. You'll receive a reply with your **API key** (a short number like `1234567`)
+> You must use an **App Password**, not your regular Gmail password.
+> App Passwords require 2-Step Verification to be enabled on the sending account.
+
+1. Go to → **https://myaccount.google.com/apppasswords**
+2. Sign in if prompted
+3. App name: `market-brief` → click **Create**
+4. Copy the 16-character password shown (e.g. `abcd efgh ijkl mnop`)
 
 ---
 
@@ -26,17 +27,17 @@ Go to your repo → **Settings → Secrets and variables → Actions → New rep
 
 | Secret name | Value |
 |---|---|
-| `CALLMEBOT_PHONE` | Your phone with country code, no `+` — e.g. `919876543210` |
-| `CALLMEBOT_APIKEY` | The API key received from CallMeBot in step 1 |
+| `GMAIL_USER` | The Gmail address you created the App Password for, e.g. `youremail@gmail.com` |
+| `GMAIL_APP_PASSWORD` | The 16-char App Password from step 1 (spaces optional) |
 
 ---
 
-## 3. Test Manually (Recommended Before Waiting Till 8:55 AM)
+## 3. Test Manually
 
 1. Go to the **Actions** tab in this repo
 2. Click **"Morning Market Brief"** in the left sidebar
 3. Click **"Run workflow"** → **"Run workflow"**
-4. Watch the logs — you should receive the WhatsApp message within ~30 seconds
+4. Check both inboxes — email arrives within ~30 seconds
 
 ---
 
@@ -44,15 +45,15 @@ Go to your repo → **Settings → Secrets and variables → Actions → New rep
 
 ```bash
 pip install -r requirements.txt
-export CALLMEBOT_PHONE=919876543210
-export CALLMEBOT_APIKEY=1234567
+export GMAIL_USER=youremail@gmail.com
+export GMAIL_APP_PASSWORD="abcd efgh ijkl mnop"
 python main.py
 ```
 
 On Windows (PowerShell):
 ```powershell
-$env:CALLMEBOT_PHONE = "919876543210"
-$env:CALLMEBOT_APIKEY = "1234567"
+$env:GMAIL_USER = "youremail@gmail.com"
+$env:GMAIL_APP_PASSWORD = "abcd efgh ijkl mnop"
 python main.py
 ```
 
